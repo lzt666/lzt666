@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding=.apache.org/POM/4.0.0"
+        xmlns:xsi="http://ww"UTF-8"?>
+<project xmlns="http://maenwv.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http:
+    <groupId>com.luo</groupId>0.0 ht//maven.apache.org/POM/4.
+tp://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modeion</artifactId>
+<version>1.0-SNAPSHOT</vlVersion>
+    <artifactId>servlet_sessersion>
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<dependencies>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+
+
+
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
+    <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.2</version>
+        <scope>provided</scope>
+    </dependency>
+
+
+
+
+
+
+</dependencies>
+    
+</project>
