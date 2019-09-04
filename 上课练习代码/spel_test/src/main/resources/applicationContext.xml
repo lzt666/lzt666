@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <bean id="address" class="com.ming.el.Address">
+        <property name="city" value="Xian"/>
+        <!--spel #{''}:?????-->
+        <property name="street" value="#{'SGDD'}"/>
+    </bean>
+
+    <bean id="car" class="com.ming.el.Car">
+        <!--spel: ???-->
+        <property name="brand" value="#{'BMW'}"/>
+        <property name="price" value="310000"/>
+        <!--spel: ???-->
+        <property name="tyrperimeter" value="#{T(java.lang.Math).PI * 8}"/>
+    </bean>
+
+    <bean id="person" class="com.ming.el.Person">
+        <property name="pName" value="#{'arvin'}"/>
+        <!--<property name="car" ref="car"/>-->
+        <property name="car" value="#{car}"/>
+        <property name="city" value="#{address.city}"/>
+        <property name="info" value="#{car.price > 300000 ? 'richman' : 'poorman'}"/>
+    </bean>
+
+
+
+</beans>
