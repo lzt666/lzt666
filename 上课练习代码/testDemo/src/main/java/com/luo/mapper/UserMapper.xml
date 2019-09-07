@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN">
+
+        -<mapper namespace="com.ming.mapper.UserMapper">
+
+    <!--sql片段-->
+
+
+    <!--经验: 1, 只写单表的 2, 不能带where子句 -->
+
+
+
+    -<sql id="arvinSql">
+
+
+    -<if test="userEx != null">
+
+    <if test="userEx.sex != null">and user.sex = #{userEx.sex} </if>
+
+    <if test="userEx.username != null">and user.username like '%${userEx.username}%' </if>
+
+</if>
+
+</sql>
+
+
+    -<sql id="arvinSql2">
+
+    <foreach separator="or" close=")" open="and (" item="everyId" collection="moreIds">id=#{everyId} </foreach>
+
+</sql>
+
+
+    -<sql id="arvinSql3">
+
+    <foreach separator="," close=")" open="id in(" item="everyId" collection="moreIds">#{everyId} </foreach>
+
+</sql>
+
+
+    -<select id="queryUserZH" resultType="com.ming.po.UserEx" parameterType="com.ming.bz.UserBz">
+    select*fromuser
+
+    -<where>
+
+    <!-- <if test="userEx != null"><if test="userEx.sex != null">and user.sex = #{userEx.sex}</if><if test="userEx.username != null">and user.username like '%${userEx.username}%'</if></if>-->
+
+
+    <include refid="arvinSql"/>
+
+</where>
+
+</select>
+
+
+    -<select id="queryUserCount" resultType="int" parameterType="com.ming.bz.UserBz">
+    selectcount(*)fromuser
+
+    -<where>
+
+    <!--<if test="userEx != null"><if test="userEx.sex != null">and user.sex = #{userEx.sex}</if><if test="userEx.username != null">and user.username like '%${userEx.username}%'</if></if>-->
+
+
+    <include refid="arvinSql"/>
+
+</where>
+
+</select>
+
+
+    -<select id="queryUserByMoreIds" resultType="com.ming.po.UserEx" parameterType="com.ming.bz.UserBz">
+    select*fromuser
+
+    -<where>
+
+    <!--<foreach collection="moreIds" item="everyId" open="and (" close=")" separator="or">id=#{everyId}</foreach>-->
+
+
+    <include refid="arvinSql3"/>
+
+</where>
+
+</select>
+
+</mapper>
