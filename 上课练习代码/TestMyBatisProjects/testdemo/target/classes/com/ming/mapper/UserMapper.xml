@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ming.mapper.UserMapper">
+
+    <!--sql片段-->
+    <!--
+        经验: 1, 只写单表的
+              2, 不能带where子句
+    -->
+    <sql id="arvinSql">
+        <if test="userEx != null">
+            <if test="userEx.sex != null">
+                and user.sex = #{userEx.sex}
+            </if>
+            <if test="userEx.username != null">
+                and user.username like '%${userEx.username}%'
+            </if>
+        </if>
+    </sql>
+
+    <sql id="arvinSql2">
+        <foreach collection="moreIds" item="everyId" open="and (" close=")" separator="or">
+            id=#{everyId}
+        </foreach>
+    </sql>
+
+
+    <sql id="arvinSql3">
+        <foreach collection="moreIds" item="everyId" open="id in(" close=")" separator=",">
+            #{everyId}
+        </foreach>
+    </sql>
+
+
+
+    <select id="queryUserZH" parameterType="com.ming.bz.UserBz" resultType="com.ming.po.UserEx">
+        select
+            *
+        from
+            user
+        <where>
+           <!-- <if test="userEx != null">
+                <if test="userEx.sex != null">
+                    and user.sex = #{userEx.sex}
+                </if>
+                <if test="userEx.username != null">
+                    and user.username like '%${userEx.username}%'
+                </if>
+            </if>-->
+           <include refid="arvinSql"/>
+        </where>
+    </select>
+
+    <select id="queryUserCount" parameterType="com.ming.bz.UserBz" resultType="int">
+        select
+            count(*)
+        from
+            user
+        <where>
+            <!--<if test="userEx != null">
+                <if test="userEx.sex != null">
+                    and user.sex = #{userEx.sex}
+                </if>
+                <if test="userEx.username != null">
+                    and user.username like '%${userEx.username}%'
+                </if>
+            </if>-->
+            <include refid="arvinSql"/>
+        </where>
+    </select>
+
+    <select id="queryUserByMoreIds" parameterType="com.ming.bz.UserBz" resultType="com.ming.po.UserEx">
+        select
+            *
+        from
+            user
+        <where>
+            <!--<foreach collection="moreIds" item="everyId" open="and (" close=")" separator="or">
+                id=#{everyId}
+            </foreach>-->
+
+
+            <include refid="arvinSql3"/>
+        </where>
+    </select>
+
+
+    <select id="queryUserByAlias" resultType="com.ming.po.User">
+        select username as MyName from user ;
+    </select>
+
+    <resultMap id="myResultMap" type="com.ming.po.User">
+        <id column="myId" property="id"/>
+        <result column="myName" property="username"/>
+    </resultMap>
+    <select id="queryUserByAlias2" resultMap="myResultMap">
+        select id as myId, username as MyName from user ;
+    </select>
+
+
+</mapper>
